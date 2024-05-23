@@ -1,0 +1,7 @@
+[user]
+	email = murray.tylar@gmail.com
+	name = Tylar
+[credential]
+	helper = cache
+[init]
+	defaultBranch = main
