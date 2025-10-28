@@ -54,3 +54,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; scroll settings; 1-line at a time, buttery smooth.
+;; requires emacs 29+
+(setq scroll-step 1
+      scroll-conservatively 101
+      scroll-margin 0)
+(pixel-scroll-precision-mode 1)
+
