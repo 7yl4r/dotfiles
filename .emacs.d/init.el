@@ -1,3 +1,26 @@
+;; ========================================================
+;; === turn off auto-indentation
+;; ========================================================
+;; Disable electric indentation
+(when (fboundp 'electric-indent-mode)
+  (electric-indent-mode -1))
+
+;; Disable automatic pairing and other "electric" helpers
+(when (fboundp 'electric-pair-mode)
+  (electric-pair-mode -1))
+(when (fboundp 'electric-layout-mode)
+  (electric-layout-mode -1))
+
+;; Stop automatic reindent on newline
+(setq-default electric-indent-inhibit t)
+;; ========================================================
+;; ========================================================
+;; === scrolling with the up down keys
+;; ========================================================
+(global-set-key (kbd "<down>") (lambda () (interactive) (scroll-up-line)))
+(global-set-key (kbd "<up>")   (lambda () (interactive) (scroll-down-line)))
+;; ========================================================
+
 (setq package-gnupghome-dir "~/.gnupg")
 
 ;; Global settings
