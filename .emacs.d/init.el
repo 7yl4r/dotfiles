@@ -1,4 +1,27 @@
 ;; ========================================================
+;; === rainbow indentation lines
+;; ========================================================
+(require 'package)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu"   . "https://elpa.gnu.org/packages/")))
+
+;; Only install if not already installed
+(unless (package-installed-p 'highlight-indent-guides)
+  ;; refresh contents *only once if missing*
+  (package-refresh-contents)
+  (package-install 'highlight-indent-guides))
+
+(require 'highlight-indent-guides)
+
+(setq highlight-indent-guides-method 'fill
+      highlight-indent-guides-auto-enabled t
+      highlight-indent-guides-responsive nil
+      highlight-indent-guides-delay 0)
+
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;; ========================================================
+;; ========================================================
 ;; === smarter ctrl+a
 ;; ========================================================
 (defun smarter-move-beginning-of-line (arg)
@@ -39,8 +62,18 @@ Repeat ARG times to move forward additional lines."
 ;; ========================================================
 ;; === scrolling with the up down keys
 ;; ========================================================
-(global-set-key (kbd "<down>") (lambda () (interactive) (scroll-up-line)))
-(global-set-key (kbd "<up>")   (lambda () (interactive) (scroll-down-line)))
+(defun scroll-up-and-move ()
+  (interactive)
+  (scroll-up-line)
+  (next-line))
+
+(defun scroll-down-and-move ()
+  (interactive)
+  (scroll-down-line)
+  (previous-line))
+
+(global-set-key (kbd "<down>") #'scroll-up-and-move)
+(global-set-key (kbd "<up>") #'scroll-down-and-move)
 ;; ========================================================
 
 (setq package-gnupghome-dir "~/.gnupg")
