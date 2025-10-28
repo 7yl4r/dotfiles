@@ -1,4 +1,26 @@
 ;; ========================================================
+;; === smarter ctrl+a
+;; ========================================================
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If already there, move to the actual beginning of the line.
+Repeat ARG times to move forward additional lines."
+  (interactive "^p")
+  (setq arg (or arg 1))
+  ;; Move by ARG lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+(global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+;; ========================================================
+;; ========================================================
 ;; === turn off auto-indentation
 ;; ========================================================
 ;; Disable electric indentation
